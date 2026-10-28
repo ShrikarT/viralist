@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from PIL import Image
-from meta_pipeline import (PipelineClient, audio_state, compose_thumbnail, output_json, persona_prompt, simulate,
+from meta_pipeline import (PipelineClient, audio_state, compose_thumbnail, normalize_scene_features, output_json, persona_prompt, simulate,
                            thumbnail_allowed, validate_analysis, validate_notes, validate_verdict)
 
 
@@ -51,6 +51,17 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_rounded_endpoint_is_bound_to_source_without_guessing_point_precision(self):
+        scene = {'start_sec':18, 'end_sec':23}
+        raw = {'observations':[{'at_sec':23.0,'description':'Result visible in final source frame'}]}
+        result = normalize_scene_features(raw, scene)
+        self.assertEqual(result['source_interval']['start_sec'],18)
+        self.assertEqual(result['source_interval']['end_sec'],23)
+        self.assertNotIn('at_sec',result['observations'][0])
+        self.assertEqual(raw['observations'][0]['at_sec'],23.0)
+        with self.assertRaisesRegex(ValueError,'future timestamp'):
+            normalize_scene_features({'observations':[{'at_sec':23.1,'description':'outside source'}]},scene)
+
     def test_full_fifty_cast_scheduler_preserves_ids_and_stop_isolation(self):
         with tempfile.TemporaryDirectory() as temp:
             client = ExternalStub(Path(temp))

@@ -43,7 +43,13 @@ def verify(out):
                 assert uploads[features["audit"]["file_id"]] == Path(scene["path"]).name
                 assert features["audit"]["source_sha256"] == scene["sha256"]
                 assert features["features"] == scene["features"]
-                assert all(scene["start_sec"] <= o["at_sec"] < scene["end_sec"] for o in scene["features"]["observations"])
+                if "source_interval" in scene["features"]:
+                    interval = scene["features"]["source_interval"]
+                    assert interval["start_sec"] == scene["start_sec"] and interval["end_sec"] == scene["end_sec"]
+                    assert all("at_sec" not in o for o in scene["features"]["observations"])
+                    assert all(scene["start_sec"] <= t <= scene["end_sec"] for t in features["audit"]["unverified_model_point_times"])
+                else:
+                    assert all(scene["start_sec"] <= o["at_sec"] < scene["end_sec"] for o in scene["features"]["observations"])
                 if "input_context_upper_bound_with_margin" in d:
                     calls = [c for c in ledger["calls"] if c["label"] == f"{prefix}-s{index}-{pid}" and c["endpoint"] == "/responses"]
                     assert len(calls) == 1 and calls[0]["status"] == "success"

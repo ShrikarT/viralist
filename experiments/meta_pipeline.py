@@ -505,8 +505,8 @@ def scene_observations(client, media, names):
                   + json.dumps({"start_sec": scene["start_sec"], "end_sec": scene["end_sec"], "local_audio": scene["audio"]}))
         value = client.text(f"{name}-scene-{scene['index']}-features", prompt, FEATURES,
                             file_id=scene["file_id"], max_output=1800, audit=audit)
-        if not all(scene["start_sec"] <= o["at_sec"] < scene["end_sec"] for o in value["observations"]):
-            raise ValueError("scene extraction produced out-of-bound/future timestamp")
+        audit["unverified_model_point_times"] = [o["at_sec"] for o in value["observations"]]
+        value = normalize_scene_features(value, scene)
         scene["features"] = value
         scene["features_sha256"] = digest(json.dumps(value, sort_keys=True).encode())
         write_json(client.out/f"{name}-scene-{scene['index']}-features.json", {"audit": audit, "features": value})
@@ -514,6 +514,19 @@ def scene_observations(client, media, names):
         list(pool.map(one, [(name, s) for name in names for s in media[name]["scenes"]]))
     write_json(client.out/"provider-media.json", media)
     return round(time.monotonic()-started, 3)
+
+
+def normalize_scene_features(value, scene):
+    # Point estimates are approximate: rounding the final frame to end_sec does
+    # not grant access to the next clip. Keep only the authoritative source range
+    # in persona input; preserve model point guesses privately in extraction audit.
+    if not all(scene["start_sec"] <= o["at_sec"] <= scene["end_sec"] for o in value["observations"]):
+        raise ValueError("scene extraction produced out-of-bound/future timestamp")
+    result = dict(value)
+    result["observations"] = [{"description": o["description"]} for o in value["observations"]]
+    result["source_interval"] = {"start_sec": scene["start_sec"], "end_sec": scene["end_sec"],
+                                 "granularity": "source segment; model point timestamps are unverified and omitted"}
+    return result
 
 
 def warm_current_image_counts(client, media, names):
