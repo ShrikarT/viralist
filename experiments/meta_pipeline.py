@@ -285,7 +285,7 @@ def validate_verdict(raw, pid):
     return value
 
 
-def simulate(client, item, name, n, workers=16, indices=None, prefix=None):
+def simulate(client, item, name, n, workers=32, indices=None, prefix=None):
     started = time.monotonic()
     records, dispatches, failures = [], [], []
     prefix = prefix or f"{name}-{n}"
@@ -516,6 +516,20 @@ def scene_observations(client, media, names):
     return round(time.monotonic()-started, 3)
 
 
+def warm_current_image_counts(client, media, names):
+    """Non-generative scene asset preparation; no viewer cards or histories."""
+    def one(pair):
+        name, scene = pair
+        path = scene["frame_path"]
+        body = {"model": MODEL, "store": False, "reasoning": {"effort": REASONING}, "max_output_tokens": 1200,
+                "input": [{"role": "user", "content": [{"type": "input_text", "text": ""},
+                    {"type": "input_image", "image_url": "data:image/png;base64," + base64.b64encode(Path(path).read_bytes()).decode()}]}],
+                "text": {"format": {"type": "json_schema", "name": "result", "strict": True, "schema": VERDICTS}}}
+        client.image_context_bound(body, path, "", f"{name}-s{scene['index']}-prepare")
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        list(pool.map(one, [(name, s) for name in names for s in media[name]["scenes"]]))
+
+
 def controls(client):
     out = client.out
     silent, tone = out / "silent-control.wav", out / "tone-control.wav"
@@ -574,13 +588,18 @@ def main():
               "videos": {}, "failures": [], "thumbnails": [], "reused_artifacts": reused,
               "representation": args.representation}
     start = time.monotonic()
+    warm_pool = ThreadPoolExecutor(max_workers=1)
+    warm_future = None
     try:
         catalog = client.call("catalog", "GET", "/models")
         assert {MODEL, ASR, IMAGE} <= {x["id"] for x in catalog["data"]}
         names = ["a", "b"] if args.stage == "small" else ["a"]
+        if args.representation == "projected":
+            warm_future = warm_pool.submit(warm_current_image_counts, client, media, names)
         report["provider_preparation_sec"] = prepare_provider(client, media, names)
         if args.representation == "projected":
             report["scene_extraction_sec"] = scene_observations(client, media, names)
+            warm_future.result()
         if args.stage == "small":
             if args.reuse and (args.reuse/"audio-controls.json").exists():
                 report["audio_controls"] = read(args.reuse/"audio-controls.json")
@@ -634,6 +653,7 @@ def main():
         report["failures"].append(client.safe(exc))
         print(json.dumps({"failure": client.safe(exc)}), flush=True)
     finally:
+        warm_pool.shutdown(wait=True)
         client.cleanup()
         report.update(cumulative_estimated_usd=round(client.spent, 8), stage_estimated_usd=round(client.spent-client.previous_spend, 8),
                       uncertain_reserve_usd=client.uncertain, total_wall_sec_including_cleanup=round(time.monotonic()-start, 3))

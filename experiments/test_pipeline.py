@@ -51,6 +51,17 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_full_fifty_cast_scheduler_preserves_ids_and_stop_isolation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            client = ExternalStub(Path(temp))
+            summary, records = simulate(client, {'scenes': scenes()}, 'fifty', 50, workers=32)
+            self.assertEqual(summary['requested_personas'], 50)
+            self.assertEqual(summary['failed_personas'], 0)
+            self.assertEqual(len({r['persona_id'] for r in records}), 50)
+            self.assertEqual(summary['valid_verdicts'], 148)
+            self.assertEqual(summary['post_skip_dispatches'], 0)
+            self.assertGreater(client.max_active, 1)
+
     def test_current_image_context_is_counted_once_without_sharing_persona_text(self):
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp)
