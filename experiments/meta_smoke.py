@@ -1,6 +1,6 @@
 """Authorized, bounded Meta API experiment. Not the Viralist production pipeline.
 
-Secrets: MODEL_API_KEY in child-process environment only. Raw results/media go to
+Secrets: MODEL_API_KEY environment or private stdin. Raw results/media go to
 the caller's private output directory, never this repository. No automatic retry.
 """
 import argparse
@@ -327,7 +327,8 @@ def thumbnail(client, name, media, variant):
         "model": "muse-image-1.0", "images": [{"image_url": "data:image/png;base64," + base64.b64encode(frame.read_bytes()).decode()}],
         "prompt": prompt, "n": 1, "response_format": "b64_json", "output_format": "png",
         "size": "1024x1536" if media["height"] > media["width"] else "1536x1024",
-        "enable_web_search": False, "enable_image_search": False, "enable_shell": False, "reasoning_strength": "low",
+        "tool_enablement": {"enable_web_search": False, "enable_image_search": False, "enable_shell": False},
+        "reasoning_strength": "low",
     }, reserve=.01, images=True)
     image = base64.b64decode(result["data"][0]["b64_json"])
     path = client.out / f"{name}-thumbnail-{variant}.png"
