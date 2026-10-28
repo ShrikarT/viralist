@@ -10,6 +10,13 @@
 
 ## Latest evidence
 
+### Active fifty-policy follow-up
+
+- Owner requested strengthening and testing all fifty, with minimal process, and explicitly raised the cumulative API cap to **$15 total** on 2026-10-28. This supersedes the earlier $10 cap for this follow-up only; all prior $7.72663950 usage and $1.31327 unknown reserve remain in the ledger.
+- `experiments/behavior/fifty-policies.json` contains fifty task-based candidate policies with concrete requirements/tradeoffs and evidence-sensitive rating rules. `fifty-cases.json` contains 56 independent hypothetical workflow descriptions in two context/combination sets. Three repeats plus two identical-card aliases test decisions, with one separate fifty-viewer real-video run through the existing scheduler. Battery decisions are textual, not video-understanding proof.
+- No forced disagreement or tuning to observed outputs. Before inference, pairwise separation requires stable majority decisions, differences in both case sets, and at least max(2, larger alias disagreement count + 1) differing cases. A reported subset is conservative, not a maximum. Raw requests and results stay private. Independent review remains unavailable.
+- Follow-up private directory: `C:/Users/Shrikar/.codex/private-runs/viralist-fifty-20261028`. Inspect its ledger/process before restarting. No publication or product implementation authorized.
+
 ### Completed V01-DIV experiment
 
 - The owner authorized starting a behavioral-diversity benchmark before enlarging the persona library. Frozen source `3fa326c4a20f9dbc23c77e4152a2a012cdc852db`; same branch/checkout and original cumulative $10 cap. No product implementation or external publication is authorized.
