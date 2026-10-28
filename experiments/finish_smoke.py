@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--out', type=Path, required=True)
     out = parser.parse_args().out
+    raise SystemExit('Legacy paid follow-up retired. Use experiments/meta_pipeline.py and its inspected staged gates.')
     if (out / 'followup.json').exists():
         raise SystemExit('Follow-up already attempted; inspect before any further charge.')
     report = json.loads((out / 'report.json').read_text(encoding='utf-8'))

@@ -9,7 +9,7 @@
 
 ## Authority and task state
 
-- Shrikar owns scope, spend, credentials, public repository/license choice, merges, deployments and releases. The completed provider experiment was authorized with supplied videos/key and a $10 total ceiling; see `docs/evidence/provider-spike.md`. Publication, deployment and messages remain unauthorized.
+- Shrikar owns scope, spend, credentials, public repository/license choice, merges, deployments and releases. The supplied-video/key experiments and requested fixes/staged Spark 1.3 rerun were authorized under one cumulative $10 ceiling; current results are in `docs/evidence/spark13-rerun.md`. Publication, deployment and messages remain unauthorized.
 - GitHub Issues in `ShrikarT/viralist` is the selected tracker destination. Until the task ledger is published there, `PLAN.md` remains canonical locally; no canonical issue has been created. Preserve task IDs and avoid duplicate trackers.
 - Approved requirements, proposals and unknowns are separated in `docs/PROJECT_BRIEF.md`. Resolve material conflicts there, retaining source provenance in `docs/RESEARCH.md`.
 - Work branches use `codex/`. Supply task ID, exact accepted prerequisite SHAs, owned paths, interfaces, checks and external-action authority in each dispatch. A task is not READY with an unresolved prerequisite SHA.

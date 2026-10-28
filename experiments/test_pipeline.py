@@ -9,6 +9,8 @@ import tempfile
 import threading
 import time
 import unittest
+import subprocess
+import sys
 from unittest.mock import patch
 
 from PIL import Image
@@ -51,6 +53,16 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_legacy_paid_entrypoints_stop_before_creating_output_or_requesting_key(self):
+        with tempfile.TemporaryDirectory() as temp:
+            for name in ('meta_smoke.py', 'finish_smoke.py'):
+                destination = Path(temp)/name
+                result = subprocess.run([sys.executable,str(Path(__file__).with_name(name)), '--out',str(destination)],
+                                        input='', capture_output=True, text=True)
+                self.assertNotEqual(result.returncode,0)
+                self.assertIn('retired',result.stderr)
+                self.assertFalse(destination.exists())
+
     def test_rounded_endpoint_is_bound_to_source_without_guessing_point_precision(self):
         scene = {'start_sec':18, 'end_sec':23}
         raw = {'observations':[{'at_sec':23.0,'description':'Result visible in final source frame'}]}

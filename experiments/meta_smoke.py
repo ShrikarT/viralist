@@ -353,6 +353,8 @@ def main():
     parser.add_argument("--prepare-only", action="store_true")
     parser.add_argument("--scale", action="store_true")
     args = parser.parse_args()
+    if not args.prepare_only:
+        raise SystemExit("Legacy paid runner retired. Use experiments/meta_pipeline.py and its inspected staged gates.")
     args.out.mkdir(parents=True, exist_ok=True)
     if (args.out / "ledger.json").exists() and not args.prepare_only:
         raise SystemExit("Existing run found: inspect results before starting another charged run.")

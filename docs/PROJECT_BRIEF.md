@@ -8,6 +8,8 @@ The direct request authorized reading the goal objective and carrying out its di
 
 Approved in this session: planning, factual corrections, and the subsequent explicit request to test the supplied key/config with two supplied videos under a $10 key limit. That request authorizes the bounded live experiment; it does not authorize full product implementation or publication. Shrikar confirmed $150 Meta credits, Muse Image playground/API access, selected `ShrikarT/viralist`, and excluded TokenTree. The experiment returned four Muse images and live Spark results; see [observed evidence](evidence/provider-spike.md). Reported in the supplied PRD: simulation-only positioning; no real-world accuracy work now; Flash first without deleting the roadmap.
 
+The owner subsequently authorized fixing those experimental issues and staged reruns with Spark 1.3, under the same cumulative $10 cap. Both final stages passed; [latest evidence](evidence/spark13-rerun.md) records 88.2s for the complete local report including preparation. The app remains unbuilt; this approval covers experiment fixes, not publication or all proposed product choices.
+
 ## Launch card
 
 | Field | Working answer | Evidence |
@@ -19,7 +21,7 @@ Approved in this session: planning, factual corrections, and the subsequent expl
 | Demo slice | Flash, top three evidence-backed Director's Notes, paired A/B, Thumbnail Lab, visible simulation provenance, private uploads/deletion | Supplied §0.2 plus privacy invariants |
 | Event | Meta Global AI Developer Hackathon; Indie; Build for Your World | Public event verified; entrant selection only supplied |
 | Deadline | 2026-11-04 21:00 America/New_York = 2026-11-05 07:30 Asia/Kolkata | Public event date/time; timezone conversion checked locally |
-| Budget | $150 credits owner-confirmed; $10 experiment ceiling; observed experiment estimate $0.50390605 | Reported usage and published rates; billing balance not independently inspected |
+| Budget | $150 credits owner-confirmed; $10 cumulative ceiling; $3.19433325 usage-based estimate plus $1.31327 unknown-charge reserve | Latest chained ledgers; billing balance not independently inspected |
 | Muse Image access | Four generated images returned by API; intended generator | Live experiment 2026-10-28; quality caveats in evidence |
 | Repo/tracker | `ShrikarT/viralist`; local origin configured; PLAN.md until GitHub task migration | Owner selected; GitHub connector verified public/empty on 2026-10-28; no push |
 | Input assets | Two supplied videos tested independently; they are different products, not matched A/B cuts. TokenTree excluded. | Live inspection 2026-10-28; matched demo pair still needed |
