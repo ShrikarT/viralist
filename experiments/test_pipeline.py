@@ -27,7 +27,7 @@ class ExternalStub:
     def safe(self, value):
         return str(value)
 
-    def text(self, label, prompt, schema, file_id=None, max_output=0, audit=None):
+    def text(self, label, prompt, schema, file_id=None, max_output=0, audit=None, image_path=None):
         with self.lock:
             self.current += 1
             self.max_active = max(self.max_active, self.current)
@@ -51,6 +51,23 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_projected_path_keeps_future_observations_and_peer_impressions_out(self):
+        with tempfile.TemporaryDirectory() as temp:
+            client = ExternalStub(Path(temp))
+            segments = scenes()
+            for s in segments:
+                s.update(features={"scene_summary": 'LATE_ONLY_VISUAL_CUE' if s['index'] == 2 else 'current visual'},
+                         features_sha256=f'feature-{s["index"]}', frame_path='current-frame.png')
+            summary, records = simulate(client, {'scenes': segments}, 'projected', 2, workers=2)
+            self.assertEqual(summary['representation'], 'scene_local_observations_plus_real_frame')
+            self.assertFalse(summary['live_native_scene_clips'])
+            early = [c for c in client.calls if c[0].endswith('s0-p001')][0]
+            self.assertNotIn('LATE_ONLY_VISUAL_CUE', early[1])
+            self.assertNotIn('LATE_ONLY_SECRET_CUE', early[1])
+            self.assertNotIn('p002', early[1])
+            self.assertIsNone(early[2])
+            self.assertEqual(summary['post_skip_dispatches'], 0)
+
     def test_truncated_model_output_never_accepted_as_verdict(self):
         with self.assertRaisesRegex(ValueError, "incomplete model response"):
             output_json({"status": "incomplete", "output": []})
@@ -95,7 +112,7 @@ class PipelineRegression(unittest.TestCase):
                         return {"id": "stub-external-response"}
                 return Response()
 
-            with patch("meta_smoke.requests.request", side_effect=request):
+            with patch("meta_smoke.requests.Session.request", side_effect=request):
                 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
                     list(pool.map(lambda i: client.call(f"test-{i}", "GET", "/test", reserve=1, fixed_cost=.001), range(8)))
             self.assertEqual(maximum, 2)

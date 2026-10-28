@@ -74,6 +74,7 @@ class Client:
         self.limit = 9.0  # $1 below owner's $10 ceiling
         self.counter = 0
         self.file_ids = []
+        self.transport = threading.local()
 
     def safe(self, text):
         return re.sub(r"LLM_[A-Za-z0-9_]+", "[REDACTED]", str(text).replace(self.key, "[REDACTED]"))
@@ -105,7 +106,9 @@ class Client:
         started = time.monotonic()
         response = None
         try:
-            response = requests.request(method, BASE + endpoint, headers={"Authorization": "Bearer " + self.key, **(extra_headers or {})},
+            if not hasattr(self.transport, "session"):
+                self.transport.session = requests.Session()
+            response = self.transport.session.request(method, BASE + endpoint, headers={"Authorization": "Bearer " + self.key, **(extra_headers or {})},
                                         json=body, files=files, data=data, timeout=(20, 240), allow_redirects=False)
             result = response.json()
             elapsed = time.monotonic() - started

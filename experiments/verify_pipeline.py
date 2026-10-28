@@ -35,7 +35,17 @@ def verify(out):
             pid, index = d["persona_id"], d["scene"]
             scene = media[name]["scenes"][index]
             assert d["model"] == "muse-spark-1.3" and d["previous_response_id_present"] is False
-            assert uploads[d["file_id"]] == Path(scene["path"]).name
+            if d.get("representation") == "scene_local_observations_plus_real_frame":
+                assert d["file_id"] is None
+                assert d["image_sha256"] == scene["frame_sha256"] == digest(Path(scene["frame_path"]).read_bytes())
+                assert d["features_sha256"] == scene["features_sha256"]
+                features = read(out/f"{name}-scene-{index}-features.json")
+                assert uploads[features["audit"]["file_id"]] == Path(scene["path"]).name
+                assert features["audit"]["source_sha256"] == scene["sha256"]
+                assert features["features"] == scene["features"]
+                assert all(scene["start_sec"] <= o["at_sec"] < scene["end_sec"] for o in scene["features"]["observations"])
+            else:
+                assert uploads[d["file_id"]] == Path(scene["path"]).name
             assert digest(Path(scene["path"]).read_bytes()) == d["media_sha256"] == scene["sha256"]
             assert digest(Path(scene["audio_path"]).read_bytes()) == d["audio_sha256"] == scene["audio_sha256"]
             assert d["audio"] == scene["audio"], "wrong/future transcript projected"
@@ -50,6 +60,8 @@ def verify(out):
             assert set(payload) == {"viewer", "current_segment"}
             assert payload["viewer"]["id"] == pid
             assert payload["current_segment"]["audio"] == scene["audio"]
+            if "features" in scene:
+                assert payload["current_segment"]["observations"] == scene["features"]
             streams = read_probe(scene["path"])
             assert not any(s["codec_type"] == "audio" for s in streams)
         validate_analysis(report["videos"][name]["analysis"], media[name]["duration_sec"])
