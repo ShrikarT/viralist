@@ -134,6 +134,8 @@ class PipelineRegression(unittest.TestCase):
         note = {"start_sec": 3, "end_sec": 8, "evidence_ids": ["e1"], "quotes": [record["reason"]],
                 "suggested_edit": "Capture the actual workflow"}
         validate_notes({"notes": [note]}, [record])
+        safe_warning = dict(note, suggested_edit="Add a real capture; do not use synthetic or mock UI.")
+        validate_notes({"notes": [safe_warning]}, [record])
         for field, value in (("quotes", ["Invented quote"]), ("end_sec", 9), ("suggested_edit", "Show synthetic UI")):
             broken = dict(note, **{field: value})
             with self.assertRaises(ValueError):
