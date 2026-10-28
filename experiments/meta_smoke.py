@@ -88,7 +88,8 @@ class Client:
             "calls": self.ledger,
         })
 
-    def call(self, label, method, endpoint, body=None, reserve=0, images=False, files=None, data=None):
+    def call(self, label, method, endpoint, body=None, reserve=0, images=False, files=None, data=None,
+             fixed_cost=None, extra_headers=None):
         with self.lock:
             if self.spent + self.reserved + self.uncertain + reserve > self.limit:
                 raise RuntimeError("budget reservation would exceed dispatch limit")
@@ -104,7 +105,7 @@ class Client:
         started = time.monotonic()
         response = None
         try:
-            response = requests.request(method, BASE + endpoint, headers={"Authorization": "Bearer " + self.key},
+            response = requests.request(method, BASE + endpoint, headers={"Authorization": "Bearer " + self.key, **(extra_headers or {})},
                                         json=body, files=files, data=data, timeout=(20, 240), allow_redirects=False)
             result = response.json()
             elapsed = time.monotonic() - started
@@ -120,7 +121,9 @@ class Client:
                 raise RuntimeError(f"{label}: HTTP {response.status_code}: {entry['error']}")
             usage = result.get("usage") or {}
             cost = 0.0
-            if images:
+            if fixed_cost is not None:
+                cost = fixed_cost
+            elif images:
                 count = len(result.get("data", []))
                 if count > 1:
                     raise RuntimeError("unexpected extra image outputs")
@@ -159,8 +162,9 @@ class Client:
         with path.open("rb") as f:
             result = self.call(label, "POST", "/files", files={"file": (path.name, f, "video/mp4")},
                                data={"purpose": "user_data", "expires_after[anchor]": "created_at", "expires_after[seconds]": "3600"})
-        self.file_ids.append(result["id"])
-        write_json(self.out / "provider-files.json", self.file_ids)
+        with self.lock:
+            self.file_ids.append(result["id"])
+            write_json(self.out / "provider-files.json", self.file_ids)
         return result["id"]
 
     def text(self, label, prompt, schema, file_id=None, max_output=4000, audit=None):
