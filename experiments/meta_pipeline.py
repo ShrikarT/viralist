@@ -285,16 +285,19 @@ def validate_verdict(raw, pid):
     return value
 
 
-def simulate(client, item, name, n, workers=32, indices=None, prefix=None):
+def simulate(client, item, name, n, workers=32, indices=None, prefix=None, persona_cards=None, verdict_schema=None):
     started = time.monotonic()
     records, dispatches, failures = [], [], []
     prefix = prefix or f"{name}-{n}"
     lock = threading.Lock()
+    if persona_cards is not None:
+        if len(persona_cards) != n or len({p['id'] for p in persona_cards}) != n:
+            raise ValueError('cast must have exactly the requested number of unique instance IDs')
 
     def one(i):
-        pid = f"p{i+1:03d}"
-        person = {"id": pid, "card": ARCHETYPES[i % len(ARCHETYPES)],
+        person = dict(persona_cards[i]) if persona_cards is not None else {"id": f"p{i+1:03d}", "card": ARCHETYPES[i % len(ARCHETYPES)],
                   "context": ["focused browsing", "brief break", "distracted scrolling"][i % 3], "impression": ""}
+        pid = person['id']
         for scene in item["scenes"]:
             audit = {"persona_id": pid, "scene": scene["index"], "start_sec": scene["start_sec"], "end_sec": scene["end_sec"],
                      "media_sha256": scene["sha256"], "audio_sha256": scene["audio_sha256"],
@@ -303,7 +306,7 @@ def simulate(client, item, name, n, workers=32, indices=None, prefix=None):
             if projected:
                 audit.update(representation="scene_local_observations_plus_real_frame", features_sha256=scene["features_sha256"])
             try:
-                raw = client.text(f"{prefix}-s{scene['index']}-{pid}", persona_prompt(person, scene), VERDICTS,
+                raw = client.text(f"{prefix}-s{scene['index']}-{pid}", persona_prompt(person, scene), verdict_schema or VERDICTS,
                                   file_id=None if projected else scene["file_id"], max_output=1200, audit=audit,
                                   **({"image_path": scene["frame_path"]} if projected else {}))
                 verdict = validate_verdict(raw, pid)
@@ -328,7 +331,8 @@ def simulate(client, item, name, n, workers=32, indices=None, prefix=None):
     assert not any(d["scene"] > stop.get(d["persona_id"], 100000) for d in dispatches)
     last = item["scenes"][-1]["index"]
     requested = n if indices is None else len(indices)
-    summary = {"requested_personas": requested, "archetypes": min(requested, len(ARCHETYPES)), "fictional_not_calibrated": True,
+    definitions = len({json.dumps(p['card'],sort_keys=True) for p in persona_cards}) if persona_cards is not None else min(requested,len(ARCHETYPES))
+    summary = {"requested_personas": requested, "archetypes": definitions, "fictional_not_calibrated": True,
                "valid_verdicts": len(records), "failed_personas": len(failures), "failures": failures,
                "post_skip_dispatches": 0, "independent_persona_requests": True,
                "reached_final_segment": len({r["persona_id"] for r in records if r["scene"] == last}),
