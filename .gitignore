@@ -1,0 +1,7 @@
+# Private experiment inputs, credentials and generated evidence stay outside Git.
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.private-runs/
