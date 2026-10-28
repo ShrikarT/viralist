@@ -1,6 +1,6 @@
 # Viralist delivery plan
 
-Canonical local task: **VIR-PLAN — product discovery and technical strategy**. Status: author-complete planning package, owner corrections recorded 2026-10-28, independent review pending. Owner selected `ShrikarT/viralist`; origin is configured and the remote was verified public/empty. No canonical GitHub issue or push yet. Preserve IDs and link the planning commit when publishing the ledger to the selected GitHub Issues tracker; do not use the parent repository or duplicate task state.
+Canonical local task: **VIR-PLAN — product discovery and technical strategy**. Status: author-complete planning/experiment package, owner corrections recorded 2026-10-28, independent review pending. Owner selected `ShrikarT/viralist` and authorized committing/pushing the current work there. PLAN remains canonical until an explicitly authorized tracker migration; no canonical GitHub issue exists. Preserve IDs and avoid duplicate task state. Next product priority is the first working upload-to-report flow; further all-fifty persona separation is deferred.
 
 ## Gates and dependency graph
 

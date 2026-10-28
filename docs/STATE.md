@@ -2,7 +2,7 @@
 
 ## Checkout, authority and recovery
 
-- Repository: `C:/Users/Shrikar/viralist`; branch `codex/meta-api-smoke`; owner-selected origin `https://github.com/ShrikarT/viralist.git`. No push, GitHub issue, application, deployment or release. `PLAN.md` is the canonical local task ledger.
+- Repository: `C:/Users/Shrikar/viralist`; branch `codex/meta-api-smoke`; owner-selected origin `https://github.com/ShrikarT/viralist.git`. On 2026-10-28 the owner authorized committing/pushing the existing planning and experiment work. Verify the published revision with `git ls-remote origin refs/heads/codex/meta-api-smoke`. No GitHub issue, application, deployment or release. `PLAN.md` is the canonical task ledger.
 - Owner explicitly authorized the initial experiment, fixes/reruns and the fifty-policy follow-up. The latest explicit cumulative ceiling is **$15 total**, including earlier attempts and their retained unknown-charge reserve. $150 Meta credits, repository selection, supplied inputs, latest-model preference and TokenTree exclusion are settled confirmations.
 - Provider execution source: `04b852728ae22967f408f71e34f274911ab07578`. Final small and scale stages used this same committed configuration. Later handoff/dependency and legacy-CLI retirement changes do not relabel those receipts. Planning baseline `767a2f6044a04a44864a5c777b92fb085a9b7835`; owner corrections `35df6a59d6700709c078b072b1493db0fdeb53ba`; earlier Spark 1.2 run `27cff193a646646966a41f8de15d07ea97e790f4`.
 - Primary author owns this checkout and experiment/doc changes. No workers, worktrees or browser sessions were created. All provider processes are terminal; all controlled provider files are deleted/404. No active charged requests. Credential variable cleared and owned log handles closed; the original supplied key remains in the conversation and can be revoked by the owner.
@@ -39,6 +39,8 @@ See [Spark 1.3 corrections and rerun](evidence/spark13-rerun.md), with [earlier 
 - Author checks: 15 offline scheduler/budget/semantic/layout regressions before provider execution; final handoff adds a regression for both retired paid entry points. Actual artifact verifiers passed both final stages; persisted-credential scan and all provider deletion receipts passed. Python compilation, Markdown links and diff checks form final handoff checks. Source receipts remain revision-specific.
 
 ## Acceptance and next step
+
+The owner is moving to app development. Prioritize a real upload → analysis → report flow, evidence isolation, privacy/deletion and budget controls. Further differentiation of all fifty profiles is deferred; the fourteen-profile result is a conservative test subset, not a cap on cast size. This turn publishes existing work only; it does not start application implementation or additional paid tests.
 
 | Milestone | State |
 |---|---|
