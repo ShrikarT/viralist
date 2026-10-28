@@ -1,6 +1,6 @@
 # Viralist delivery plan
 
-Canonical local task: **VIR-PLAN — product discovery and technical strategy**. Status: author-complete planning package, independent review pending. No GitHub remote/issue exists; do not create a duplicate tracker or use the parent repository. Move this task ledger to GitHub Issues only after the owner chooses the correct remote; preserve IDs and link the planning commit.
+Canonical local task: **VIR-PLAN — product discovery and technical strategy**. Status: author-complete planning package, owner corrections recorded 2026-10-28, independent review pending. Owner selected `ShrikarT/viralist`; origin is configured and the remote was verified public/empty. No canonical GitHub issue or push yet. Preserve IDs and link the planning commit when publishing the ledger to the selected GitHub Issues tracker; do not use the parent repository or duplicate task state.
 
 ## Gates and dependency graph
 
@@ -33,7 +33,7 @@ Author “implemented” advances only to WORKER-REPORTED. Independent exact-com
 - Behavior: a future worker knows what is authorized, which repository it owns and what evidence is required.
 - Preconditions: planning commit exists; owner reviews PROJECT_BRIEF. Accepted baseline: none yet.
 - Interface/ownership: planning docs and contract proposal only; owner/integrator owns STATE/PLAN. No product code.
-- Check: approve/amend upload/latency/media fallback, record exact planning SHA and reviewer findings; confirm remote/license, owned demo footage, Standard model access and hard spend cap separately. No need to settle paid-product pricing.
+- Check: approve/amend upload/latency contract, record exact planning SHA and reviewer findings; settle license, replacement owned demo footage, Standard API behavior and hard spend cap. Remote selection and receipt of $150 credits are owner-confirmed; Muse Image playground works, but API/policy discrepancy remains. No need to settle paid-product pricing.
 - Real versus simulated: read actual account access/billing only when authorized; no invented credit receipt. Public event facts are not proof of selection.
 - Risk/review: low implementation complexity, high dependency significance; one document review. Not parallel-safe with changes to core contracts.
 - Blockers: owner decisions and independent review availability. Stop after a concrete decision record; do not publish or test paid providers just because the plan exists.
@@ -95,13 +95,13 @@ Author “implemented” advances only to WORKER-REPORTED. Independent exact-com
 
 ## V05 — Thumbnail Lab with a permitted source
 
-- Behavior: compare original + three owned-frame/layout variants using a 30-person simulated panel; export chosen PNG.
-- Preconditions: accepted V03 SHA, C7 freeze and owner adoption of India fallback. Access/rights to source frames confirmed.
+- Behavior: compare original + three thumbnail variants using a 30-person simulated panel; export chosen PNG. Intended generator is Muse Image where permitted; owned-frame/layout variants are fallback.
+- Preconditions: accepted V03 SHA and C7 freeze; source-frame rights confirmed; Muse Image API access and applicable permission resolved before live generation. Playground access is owner-confirmed, not an app integration test.
 - Ownership: `apps/api/app/thumbnails/`, `apps/web/src/features/thumbnails/`, thumbnail tests. Integrator owns route/schema changes; no overlap with V04 shared UI.
 - Interface: C7 source provenance, actual vote counts/reasons and tie handling. Pair same panel across variants, randomize order and record it.
-- Acceptance: A05; each frame/layout is traceable to owned media; no Muse Image calls on India path; real vote inference and distinct denominator per variant; missing/tied votes never become a guaranteed CTR improvement; exports are deletable derivatives.
+- Acceptance: A05; each variant records source/provider provenance. Muse Image claims require permitted actual API calls with receipts; fallback layouts are labeled. Real vote inference and distinct denominator per variant; missing/tied votes never become a guaranteed CTR improvement; exports are deletable derivatives.
 - Mock permissions: external voting response for error/tie tests; live panel for integration claim. Local frame layouts are not generative-model output.
-- Non-goals: alternative paid image provider selection, image-generation sponsor claim, predicted click-through-rate calibration.
+- Non-goals: alternative paid image provider selection and predicted click-through-rate calibration. Any image-generation sponsor claim must match verified use; playground access alone is insufficient evidence.
 - Risk/review: medium, 0.5–1 day; optional SAM crop only if its real geometry improves an inspected output. Stop on unavailable legal input or budget; preserve lab scope as blocked rather than fabricate.
 
 ## V06 — verify failure recovery, deletion and combined journey

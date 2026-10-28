@@ -2,7 +2,7 @@
 
 Test a short product demo with a simulated audience, inspect timestamped editing notes, and compare your next cut.
 
-**Status: planning only, 27 October 2026.** No application, provider integration, tests, or deployment exists yet. This is a new local Git repository; no remote has been selected. The strategy is a recommendation, not a record of owner approval or working software.
+**Status: planning only, updated 28 October 2026.** No application, provider integration, tests, or deployment exists yet. Owner-selected remote: [ShrikarT/viralist](https://github.com/ShrikarT/viralist), configured locally as `origin`; no push performed. The strategy remains a recommendation except for explicitly recorded owner confirmations.
 
 Start with [the planning handoff](docs/START_HERE.md), [the product brief](docs/PROJECT_BRIEF.md), and [the delivery plan](PLAN.md). Current evidence and next actions are in [STATE](docs/STATE.md). Operating rules are in [AGENTS](AGENTS.md).
 

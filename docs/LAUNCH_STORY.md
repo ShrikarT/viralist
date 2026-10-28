@@ -2,7 +2,7 @@
 
 Audience: an indie founder choosing an edit before a product launch. Story: **“Watch a simulated viewer leave. Find the moment. Try a better cut and inspect what changed.”** Product usefulness is the editing loop; there is no real-world virality claim.
 
-Required before capture: journey-verified build, source SHA/artifact digest, owned A/B footage of the same subject, actual live events/notes/comparison, accessible failure state and replay label. TokenTree is a candidate subject only; the referenced demo kit was not supplied. Record rights and input hashes first. Preserve the supplied concept attribution to @shubhamgl2003's original Viralist reel; exact source link/permission context remains unverified, so avoid “invented from scratch.”
+Required before capture: journey-verified build, source SHA/artifact digest, owned A/B footage of the same subject, actual live events/notes/comparison, accessible failure state and replay label. TokenTree is explicitly excluded by the owner (2026-10-28); replacement subject and footage remain unresolved. Record rights and input hashes first. Preserve the supplied concept attribution to @shubhamgl2003's original Viralist reel; exact source link/permission context remains unverified, so avoid “invented from scratch.”
 
 | Time | Real shot / audible cue | Proof required |
 |---|---|---|
@@ -11,7 +11,7 @@ Required before capture: journey-verified build, source SHA/artifact digest, own
 | 0:40–1:10 | Viewer stops, retention and its reason open | Event ID/trace available; no later input dispatched to that persona |
 | 1:10–1:45 | Note seeks exact clip, reveals evidence and proposed edit | Measured trigger + simulated reason; no unsupported causal claim |
 | 1:45–2:20 | Show externally edited B and paired comparison | Same cast/settings, uncertainty visible; honest “no clear difference” is acceptable |
-| 2:20–2:40 | Original plus owned-frame thumbnail variants, vote reasons | Actual inference votes; never call local layouts Muse Image output |
+| 2:20–2:40 | Original plus thumbnail variants, vote reasons | Actual inference votes and truthful source labels; Muse Image only with permitted, verified API generation; local layouts labeled fallback |
 | 2:40–3:00 | Manifest/methodology and roadmap; one concise closing promise | Sponsor/runtime calls evidenced, roadmap visibly future, no accuracy claim |
 
 Master: 1920×1080, 16:9, ≤180s with readable UI/captions. Optional 1080×1920 cut for social use, reframed from actual footage; it does not replace required submission format until the rules confirm it. Use product system typography, large bold overlay text and restrained cuts. Small click/selection cues only; no sound suggesting unobserved events.

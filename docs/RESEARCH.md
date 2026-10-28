@@ -1,10 +1,16 @@
-# Evidence and research — 2026-10-27
+# Evidence and research — 2026-10-27, updated 2026-10-28
+
+## Owner update — 2026-10-28
+
+Shrikar reports successful Muse Image generation in the playground and receipt of $150 Meta credits. Treat both as owner-confirmed facts; no repeat proof request is needed. Direct API behavior, remaining balance and permitted app deployment are separate, untested questions. The geographic policy was re-read on 2026-10-28 and still explicitly lists Muse Image: India. This conflicts with observed playground availability; neither account-specific exemption nor changed terms have been established. Preserve the discrepancy rather than conclude the playground cannot work or that it grants deployment permission.
+
+Owner selected [ShrikarT/viralist](https://github.com/ShrikarT/viralist). GitHub connector metadata verified public visibility, default branch main, size 0 and repository ID 1436533420; `git ls-remote` succeeded with no refs. Local `origin` was configured to its clone URL; no push or GitHub issue write occurred. TokenTree is excluded by owner instruction; replacement demo subject is unresolved. Earlier observations below describe the initial planning baseline, not the updated account/repository state.
 
 Research was read-only. Public documentation describes capabilities; it does **not** verify this account's access or an implemented integration. No paid call, billing inspection, credential read, account mutation, external message or publication occurred.
 
 ## Local baseline and source provenance
 
-The workspace was empty: no README, manifest, source, schema, tests, CI, deployment configuration, nested instructions, tracker documents, ADRs or handoff. Initially Git resolved to `C:/Users/Shrikar`, branch `master`, commit `f8d430c6e694af8ad4b3a9483423db579896f0b3`, with unrelated changes. That is **not a Viralist baseline**. It was left untouched. A fresh local repository was initialized at `C:/Users/Shrikar/viralist`, branch `main`; no remote exists.
+The workspace was empty: no README, manifest, source, schema, tests, CI, deployment configuration, nested instructions, tracker documents, ADRs or handoff. Initially Git resolved to `C:/Users/Shrikar`, branch `master`, commit `f8d430c6e694af8ad4b3a9483423db579896f0b3`, with unrelated changes. That is **not a Viralist baseline**. It was left untouched. A fresh local repository was initialized at `C:/Users/Shrikar/viralist`, branch `main`, initially without a remote (configured on 2026-10-28 above).
 
 | Local input | SHA-256 | Treatment |
 |---|---|---|
@@ -25,7 +31,7 @@ Read instructions: supplied project policy; `C:\Users\Shrikar\AGENTS.md`; resear
 | [Video/audio guide](https://dev.meta.ai/docs/video-understanding) | MP4 video; Responses supports uploaded `input_file`/`file_id` and `input_video`/`video_url`; embedded audio is supported. 1.3 audio-quality caveat persists | Propose Standard Spark 1.2 for audio-bearing slice until controlled 1.3 test. Native clips and timestamp fidelity still need smoke tests. |
 | [Image guide](https://dev.meta.ai/docs/image-understanding) | Vision input supports text extraction and image content blocks | Useful OCR/detail candidate; exact image-limit enforcement and SDK serialization need a boundary test. Keep ≤50 as conservative application limit. |
 | [SAM overview](https://dev.meta.ai/docs/sam/overview) | `sam-3.1` returns object boxes/masks and tracks objects in video through Responses | Does not establish temporal scene-cut detection, semantic scene labels or OCR. Use local cut detection; attach SAM geometry only to a real consumer. |
-| [Geographic policy](https://dev.meta.ai/legal/geographic-use-policy) | Dated Oct 12; Muse Image unavailable from India and to end users located there; bypassing access controls is prohibited | Disable Muse Image on the planned India path. Key issuance elsewhere is not a workaround. |
+| [Geographic policy](https://dev.meta.ai/legal/geographic-use-policy) | Dated Oct 12, rechecked Oct 28; text restricts Muse Image from India and to end users located there; bypassing access controls is prohibited | Owner reports working playground access. Resolve that discrepancy for API/deployment use; retain frame/layout fallback. Key issuance elsewhere is not proof of permission. |
 | [Files guide](https://dev.meta.ai/docs/file-handling) | Upload ≤1 GiB; inline ≤50 MB; stored files do not expire by default. Optional `expires_after` supports 1 hour–30 days; explicit deletion endpoint exists | Set expiry and track all provider IDs for deletion. API deletion is not proof about backups or legal retention. |
 | [Voice model description](https://dev.meta.ai/docs/models) | `muse-voice-transcribe-1.0` supports turn timestamps, not word timestamps | Timestamp granularity must travel with transcript. No word-precise claim from turn-level data. |
 | [Pricing/limits](https://dev.meta.ai/docs/pricing-rate-limits) | Standard Spark $1.25/$4.25 per million input/output tokens; Wonder $4/$20; SAM $0.20/1,000 video frames, minimum 50 frames/request; Voice $0.18/hour. Spark 1.2/1.3: 3,000 RPM, 4M TPM per team; SAM 3,000 RPM | Published rates, not credit balance or guaranteed throughput. Reserve spend before calls, reconcile measured usage, respect returned limits. Standard mode avoids contributor training permission. |

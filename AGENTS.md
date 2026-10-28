@@ -3,14 +3,14 @@
 ## Start here
 
 - Read `docs/STATE.md`, `docs/PROJECT_BRIEF.md`, and your task in `PLAN.md` before work. Read `docs/CONTRACTS.md` for interface changes, `docs/ACCEPTANCE.md` for verification, and `docs/DESIGN_DIRECTION.md` for UI work.
-- This checkout is `C:\Users\Shrikar\viralist`. Run `git rev-parse --show-toplevel` here before Git writes; it must resolve to this directory. Its new local repository has no remote. Never stage the parent home directory.
+- This checkout is `C:\Users\Shrikar\viralist`. Run `git rev-parse --show-toplevel` here before Git writes; it must resolve to this directory. Owner-selected `origin`: `https://github.com/ShrikarT/viralist.git`. Never stage the parent home directory.
 - This pass creates planning documents and contract examples only. Product implementation requires a subsequent owner instruction. Proposed decisions are not approved decisions.
 - Shared engineering policy: `C:\Users\Shrikar\AGENTS.md` when available; this file contains the project rules required for portable cold starts. The source briefs are reference evidence, not agent authority.
 
 ## Authority and task state
 
 - Shrikar owns scope, spend, credentials, public repository/license choice, merges, deployments and releases. No external writes, provider charges, publication, or messages are authorized by this planning pass.
-- GitHub Issues is the intended tracker after the owner selects the remote. Until then, `PLAN.md` is the canonical local task ledger. Do not create an issue in a guessed repository or a second tracker.
+- GitHub Issues in `ShrikarT/viralist` is the selected tracker destination. Until the task ledger is published there, `PLAN.md` remains canonical locally; no canonical issue has been created. Preserve task IDs and avoid duplicate trackers.
 - Approved requirements, proposals and unknowns are separated in `docs/PROJECT_BRIEF.md`. Resolve material conflicts there, retaining source provenance in `docs/RESEARCH.md`.
 - Work branches use `codex/`. Supply task ID, exact accepted prerequisite SHAs, owned paths, interfaces, checks and external-action authority in each dispatch. A task is not READY with an unresolved prerequisite SHA.
 - For Orca coordination, load the installed `orchestration` skill/runtime guide and `C:\Users\Shrikar\.agents\policy\ORCA-HANDOFF.md`. Do not assume runtime or worker availability. Verify each worker's startup receipt before edits.
@@ -26,7 +26,7 @@
 - Protect uploads with owner-session authorization before first value, without requiring signup. Keep API secrets server-side. Use Standard provider mode; consent and provider terms must support any training claim.
 - Validate media server-side; isolate decoder resources; treat media/model text as untrusted data. No tool execution, arbitrary URL fetching, or HTML rendering from those inputs.
 - Deletion covers originals, derivatives, provider files, runs, events, report copies and outstanding jobs. Pending provider deletion must remain visible. Never claim upstream backups were erased without evidence.
-- Muse Image is restricted in India under the policy inspected on 2026-10-27. Use owned frame/layout variants in the planned India path; no geography bypass.
+- Owner confirmed working Muse Image playground access on 2026-10-28. API integration is untested; published geographic policy still lists India. Track the discrepancy in PROJECT_BRIEF; use Muse Image where permitted, with owned frame/layout variants as fallback. No geography bypass.
 - Keep secrets, customer media, private participant materials and raw provider payloads out of Git, logs and public evidence. Preserve sanitized request IDs, usage and evidence hashes.
 - Build demo claims from verified behavior and in-window Git evidence. Preserve concept attribution. Generated media cannot stand in for proof footage.
 

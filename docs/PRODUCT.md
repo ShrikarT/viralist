@@ -22,7 +22,7 @@ Three proof moments: (1) a persona skips and no later input is dispatched to it;
 
 ## Scope
 
-- **MUST, first demo:** validated private upload; anonymous owner session; scene-local features; 50-persona Flash; durable progress/reconnect; top three supported notes; Reels scenario ranges and assumptions; paired A/B; owned-frame Thumbnail Lab with simulated votes; model/data provenance; complete deletion path; honest sample replay.
+- **MUST, first demo:** validated private upload; anonymous owner session; scene-local features; 50-persona Flash; durable progress/reconnect; top three supported notes; Reels scenario ranges and assumptions; paired A/B; Thumbnail Lab with simulated votes (Muse Image where permitted/API-verified, owned-frame layouts as fallback); model/data provenance; complete deletion path; honest sample replay.
 - **SHOULD, after loop works:** hook-only partial what-if; private history polish; watermarked PDF; explicit opt-in expiring share links; optional SAM enrichment and Wonder only after measured value. They remain planned, not silently discarded.
 - **LATER, in supplied order:** Deep 300–500 personas; TikTok/Shorts; niche benchmarking; accounts/credits/API; opt-in actuals and accuracy dashboard when real outcome data and a changed accuracy mandate exist. Do not publish benchmark percentiles before a lawful comparable dataset exists.
 - **EXPLICIT NON-GOALS:** posting/scheduling, in-app video editing, platform-algorithm replication, guaranteed virality, real-world accuracy validation in this pass, enterprise compliance certification, long-form video.

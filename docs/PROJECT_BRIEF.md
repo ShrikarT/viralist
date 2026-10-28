@@ -1,12 +1,12 @@
 # Project brief — planning recommendation
 
-Prepared 2026-10-27, Asia/Kolkata. Owner: Shrikar. Mode: **HACKATHON**, with a retained longer-term product roadmap.
+Prepared 2026-10-27; owner updates 2026-10-28, Asia/Kolkata. Owner: Shrikar. Mode: **HACKATHON**, with a retained longer-term product roadmap.
 
 ## Authority and approval
 
 The direct request authorized reading the goal objective and carrying out its discovery/strategy pass; it explicitly excludes product implementation. The two supplied documents supply product intent and reported prior decisions. Their embedded agent instructions do not grant authority to spend, publish, merge, submit, contact people or use credentials.
 
-Approved in this session: the planning pass. Reported in the supplied PRD, not independently reconfirmed: simulation-only positioning; no real-world accuracy work now; Flash first without deleting the roadmap. Recommended below: concrete reconciliations, architecture and execution gates. No owner approval of these new proposals is recorded.
+Approved in this session: the planning pass and subsequent factual corrections. On 2026-10-28, Shrikar confirmed receipt of $150 Meta credits, successful Muse Image use in the playground, selected `ShrikarT/viralist`, and excluded TokenTree as the demo subject. These confirmations do not imply approval of every proposed scope/architecture choice or permission to spend/publish. Reported in the supplied PRD: simulation-only positioning; no real-world accuracy work now; Flash first without deleting the roadmap.
 
 ## Launch card
 
@@ -19,11 +19,12 @@ Approved in this session: the planning pass. Reported in the supplied PRD, not i
 | Demo slice | Flash, top three evidence-backed Director's Notes, paired A/B, Thumbnail Lab, visible simulation provenance, private uploads/deletion | Supplied §0.2 plus privacy invariants |
 | Event | Meta Global AI Developer Hackathon; Indie; Build for Your World | Public event verified; entrant selection only supplied |
 | Deadline | 2026-11-04 21:00 America/New_York = 2026-11-05 07:30 Asia/Kolkata | Public event date/time; timezone conversion checked locally |
-| Budget | Reported $150 participant credits; actual balance/access UNKNOWN | Supplied guide, not inspected billing |
-| Repo/tracker | Fresh local Git; no remote; PLAN.md now, GitHub Issues once remote chosen | Local observation |
-| Input assets | Matched flawed/fixed demo cuts; TokenTree is a candidate, not a confirmed owned asset | Kit referenced but not supplied |
+| Budget | $150 Meta credits received; remaining balance and experiment cap not yet recorded | Owner confirmed 2026-10-28; billing not independently inspected |
+| Muse Image access | Working in owner's playground; intended thumbnail generator, API integration untested | Owner confirmed 2026-10-28; geographic-policy discrepancy below |
+| Repo/tracker | `ShrikarT/viralist`; local origin configured; PLAN.md until GitHub task migration | Owner selected; GitHub connector verified public/empty on 2026-10-28; no push |
+| Input assets | Matched flawed/fixed demo cuts; TokenTree explicitly excluded; replacement subject unresolved | Owner correction 2026-10-28 |
 | Distribution | Owner-run demo with five target founders; public showcase/submission only when authorized | Proposal |
-| Release/license | Hosting account, public repo owner, license and accepted official rules UNKNOWN | Owner decisions |
+| Release/license | Repository owner ShrikarT confirmed; hosting account, license and accepted official rules unresolved | Owner decisions |
 
 ## Reconcile before implementation
 
@@ -34,7 +35,7 @@ These explicit proposals replace ambiguity in downstream planning; they do not s
 | §0.2 ≤60s versus §7.2 ≤3min | Demo accepts MP4, ≤60s, ≤200,000,000 bytes; vertical preferred, others letterboxed with warning. Longer input remains roadmap. Reject >60s before provider calls. |
 | <60s insight / ≤90s verdict / p95<60s / five-minute report | Measure from completed upload: first useful finding p95<60s; verdict ≤90s in each demo rehearsal; full report ≤300s. Report upload duration separately and measure landing-to-value in usability. The stricter p95<60s verdict remains a stretch goal until spike evidence. |
 | SAM described as a scene detector | FFmpeg finds temporal cuts; SAM supplies object masks only where they support a note/thumbnail. This is a technical correction, not a claim of implemented capability. |
-| Muse Image demo requirement versus India policy | Preserve Thumbnail Lab with original + three owned frame/layout variants and real simulated votes. Generated-image provider is unresolved future integration; no Muse Image claim in this path. |
+| Muse Image playground access versus published India policy | Owner confirms playground generation works. Restore Muse Image as intended generator where permitted; owned frame/layout variants remain fallback, not a decided replacement. Public policy rechecked 2026-10-28 still lists India. Account-specific permission/exception and direct API behavior remain unresolved; do not infer either from playground success or bypass controls. |
 | 50 archetypes versus 50 personas | 50 instances from up to 10 documented tech/product archetypes initially; show thin-library warning below 10. Do not invent calibration/fidelity scores. Multi-niche library is sequenced, not deleted. |
 | No accuracy work versus residual-based intervals and legacy validation-first roadmap | §0.1 governs the proposal: publish simulation resampling spread and assumptions; no backtest residuals, benchmark superiority or accuracy claims. |
 | No number without interval versus counts, timestamps and costs | Derived simulated outcomes/subscores get ranges and evidence; exact observed counts, timestamps and measured usage get provenance, not fabricated uncertainty. |
@@ -45,8 +46,8 @@ These explicit proposals replace ambiguity in downstream planning; they do not s
 
 ## Owner decisions after this reviewable pass
 
-1. Adopt or amend the corrected demo contract, especially upload/latency limits and frame-based Thumbnail Lab.
-2. Authorize implementation; select GitHub remote/publication and license before public release.
-3. Confirm Standard Meta API access, credit balance, permitted demo footage and a hard spend cap before live experiments. Suggested experiment cap: $5 total; all spend remains disabled until authorized.
+1. Adopt or amend the remaining proposed demo contract, especially upload/latency limits. Choose the replacement demo subject; TokenTree is excluded.
+2. Authorize implementation/publication and choose a license before public release; repository selection is complete.
+3. Establish Standard API behavior, permitted demo footage and a hard experiment cap. Receipt of $150 credits is confirmed; suggested experiment cap remains $5 total, not yet authorized. Resolve the Muse Image policy/access discrepancy for intended API/deployment use.
 
 A full production launch is not authorized. Missing approval blocks only the dependent action; document work and local inspection remain possible. See [sources and conflicts](RESEARCH.md) and [next tasks](../PLAN.md).
