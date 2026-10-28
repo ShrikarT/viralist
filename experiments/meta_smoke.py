@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import threading
 import time
 
@@ -61,7 +62,9 @@ NOTES = obj({"notes": {"type": "array", "items": obj({
 
 class Client:
     def __init__(self, out):
-        self.key = os.environ.pop("MODEL_API_KEY")
+        self.key = os.environ.pop("MODEL_API_KEY", None) or sys.stdin.readline().strip()
+        if not self.key:
+            raise RuntimeError("No API credential supplied")
         self.out = out
         self.lock = threading.RLock()
         self.ledger = []
