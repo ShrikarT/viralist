@@ -162,13 +162,16 @@ class PipelineRegression(unittest.TestCase):
             active = 0
             maximum = 0
             lock = threading.Lock()
+            # Require two reserved external requests to overlap. A tiny sleep
+            # merely hopes the host schedules another thread before returning.
+            pair_entered = threading.Barrier(2, timeout=5)
 
             def request(*args, **kwargs):
                 nonlocal active, maximum
                 with lock:
                     active += 1
                     maximum = max(maximum, active)
-                time.sleep(.01)
+                pair_entered.wait()
                 with lock:
                     active -= 1
                 class Response:

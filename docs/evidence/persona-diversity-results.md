@@ -39,6 +39,8 @@ The chained cumulative estimate, including all prior experiments, is **$7.726639
 
 Author verification exercised the actual scene scheduler and saved artifacts. The artifact verifier reconciles every paid decision, exact own-card/prior-impression prompt, frame/features, skip boundary, frozen design and prior-ledger hash. Injected peer/future text and a reset prior-cost field were both rejected. All 25 offline regressions passed; compilation and diff checks passed. Final revision-specific check receipts remain private.
 
+The first post-commit regression run exposed a timing-dependent test: a 10ms sleep did not reliably create overlap, yielding one observed active request instead of two. The external stub now uses a two-party barrier, directly requiring overlapping reservations. The failing receipt is preserved privately; the corrected offline check makes no paid requests and does not change the inference source or results.
+
 ## Limits and next use
 
 - Thirty fixed, eight-second toy-operation videos isolate seven factors across two tasks. They do not validate human fidelity, natural motion/audio, original-video generalization, virality, statistical independence or fifty distinct behaviors.
