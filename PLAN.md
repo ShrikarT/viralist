@@ -61,6 +61,16 @@ Author “implemented” advances only to WORKER-REPORTED. Independent exact-com
 - Mock permissions: canned malformed/429 examples for parser development; S0/S1/S2/S4 require actual provider calls. S3 is a mechanism check, not user-demand/virality validation.
 - Risk/review: high, 0.5–1 day including evidence review; not parallel-safe with contract freeze. Stop at cap, geographic restriction, ambiguous charged request or two unsuccessful correction rounds. Owner decides material redesign; preserve all evidence.
 
+## V01-DIV — measure behavioral differentiation before enlarging the library
+
+- Owner authorized starting the proposed six-policy benchmark; the original cumulative $10 provider cap still applies. This authorizes a local experiment, not product implementation or publication.
+- Frozen experiment source: `3fa326c4a20f9dbc23c77e4152a2a012cdc852db`. Owned paths: `experiments/behavior/`, the optional custom-card scheduler seam, regression tests and evidence/context documents. No changes to the original 50-instance baseline.
+- Interface: [fixed policies](experiments/behavior/policies.json), [preregistered protocol](experiments/behavior/PROTOCOL.md), inference-safe fixtures and separate analysis-only expectations. Six candidates, a baseline and its identical-card alias; 30 controlled clips; 608 requested viewer trials.
+- Acceptance: repeat blinded judgments, preserve skip isolation and cost chain, test unchanged policies on unseen tasks, include negative/missing results and all diagnostic comparisons. Distinct names or attribute combinations cannot earn distinct-policy counts. No forced disagreement or claim of human calibration.
+- Result: **WORKER-REPORTED complete**; 608 valid viewer trials / 1,206 scene decisions, zero failed personas. Only privacy reproduced its preregistered contrast in both phases; five policies remain unproven. Identical-card stable disagreement on 4/30 clips prevents treating row labels as independent behaviors. [Results and complete matrix](docs/evidence/persona-diversity-results.md). Frozen baseline remains unchanged.
+- Cost: this benchmark $4.53230625 estimated; cumulative $7.72663950 plus retained $1.31327 unknown reserve, tracked maximum $9.03990950 under the original $10. All processes terminal; no charged retries or uploads. One constant disclosure-encoding discrepancy is recorded without rewriting evidence.
+- Independent exact-revision review unavailable (Orca unavailable); retain WORKER-REPORTED until independently accepted. No publication, deployment or new tracker write. Product implementation and further experimental redesign remain separate work.
+
 ## V02 — one complete thin user journey
 
 - Behavior: owned upload → durable analysis → a small visibly labeled test cast → one supported note → delete; refresh survives processing.

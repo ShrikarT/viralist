@@ -10,6 +10,15 @@
 
 ## Latest evidence
 
+### Completed V01-DIV experiment
+
+- The owner authorized starting a behavioral-diversity benchmark before enlarging the persona library. Frozen source `3fa326c4a20f9dbc23c77e4152a2a012cdc852db`; same branch/checkout and original cumulative $10 cap. No product implementation or external publication is authorized.
+- Six candidate decision policies plus a generic baseline and identical-card alias; 30 constructed static-card clips, paired across development and unseen tasks. Protocol/expectations froze before inference. [Method](evidence/persona-diversity-method.md), [protocol](../experiments/behavior/PROTOCOL.md).
+- Completed all phases: 76 cohorts / 608 viewer trials / 1,206 valid scene decisions, zero failed personas. Actual own-card/current-frame/prior-impression/skip audits and cost-chain checks passed. Only privacy reproduced its prespecified contrast in both development and heldout. Five candidates remain unproven; no fifty-distinct claim or replacement of the original cast. [Results and complete matrix](evidence/persona-diversity-results.md).
+- Private root: `C:/Users/Shrikar/.codex/private-runs/viralist-behavior-20261028`. Benchmark estimate $4.53230625; cumulative $7.72663950 plus preserved $1.31327 unknown reserve = tracked maximum $9.03990950. All processes terminal, no active reservations, no charged retries, no provider file uploads. Credential memory cleared, owned log handles closed and persisted-key scan passed.
+- A one-off metadata edit introduced an extra U+00C2 into the constant disclosure separator for every scene. All task-bearing text and rendered frames match. `assets/encoding-deviation.json` records the exact hash and exception before heldout. Preserve actual inputs across phases and disclose this limitation; do not silently rewrite paid evidence.
+- HyperFrames preview PID 14856 was stopped with the project's pinned CLI. No Orca/research worker/independent verifier was available. Result remains WORKER-REPORTED pending independent review. Author's offline checks cover 25 regressions, actual artifact reconciliation, corrupted-context/prior-cost rejection, compilation and diff checks. `final-author-check.json` records the exact verifier revision. Next: independent review or separately authorized product work; do not spend again to inspect saved evidence or reset the cost chain.
+
 See [Spark 1.3 corrections and rerun](evidence/spark13-rerun.md), with [earlier evidence](evidence/provider-spike.md) retained as history.
 
 - Final private stages: `C:/Users/Shrikar/.codex/private-runs/viralist-spark13-20261028/stage1-bounded` and `stage2-bounded`. Exact inputs, raw results, ASR, dispatch audits, hashes, costs, failures, cleanup and gates stay outside Git. Reuse saved evidence instead of spending to review it.

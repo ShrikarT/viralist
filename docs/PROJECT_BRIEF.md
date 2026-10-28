@@ -10,6 +10,8 @@ Approved in this session: planning, factual corrections, and the subsequent expl
 
 The owner subsequently authorized fixing those experimental issues and staged reruns with Spark 1.3, under the same cumulative $10 cap. Both final stages passed; [latest evidence](evidence/spark13-rerun.md) records 88.2s for the complete local report including preparation. The app remains unbuilt; this approval covers experiment fixes, not publication or all proposed product choices.
 
+The owner then authorized starting the proposed behavioral-diversity benchmark. It completed 608 synthetic viewer trials; only the privacy policy met the frozen cross-task criterion. Five candidate labels remain unproven, and the original fifty-instance baseline was not replaced. See [results and evidence matrix](evidence/persona-diversity-results.md). This local experiment does not authorize product implementation or fifty-distinct-persona claims.
+
 ## Launch card
 
 | Field | Working answer | Evidence |
@@ -21,7 +23,7 @@ The owner subsequently authorized fixing those experimental issues and staged re
 | Demo slice | Flash, top three evidence-backed Director's Notes, paired A/B, Thumbnail Lab, visible simulation provenance, private uploads/deletion | Supplied §0.2 plus privacy invariants |
 | Event | Meta Global AI Developer Hackathon; Indie; Build for Your World | Public event verified; entrant selection only supplied |
 | Deadline | 2026-11-04 21:00 America/New_York = 2026-11-05 07:30 Asia/Kolkata | Public event date/time; timezone conversion checked locally |
-| Budget | $150 credits owner-confirmed; $10 cumulative ceiling; $3.19433325 usage-based estimate plus $1.31327 unknown-charge reserve | Latest chained ledgers; billing balance not independently inspected |
+| Budget | $150 credits owner-confirmed; $10 cumulative ceiling; $7.72663950 usage-based estimate plus $1.31327 unknown-charge reserve; tracked maximum $9.03990950 | Chained ledgers through behavioral benchmark; billing balance not independently inspected |
 | Muse Image access | Four generated images returned by API; intended generator | Live experiment 2026-10-28; quality caveats in evidence |
 | Repo/tracker | `ShrikarT/viralist`; local origin configured; PLAN.md until GitHub task migration | Owner selected; GitHub connector verified public/empty on 2026-10-28; no push |
 | Input assets | Two supplied videos tested independently; they are different products, not matched A/B cuts. TokenTree excluded. | Live inspection 2026-10-28; matched demo pair still needed |
