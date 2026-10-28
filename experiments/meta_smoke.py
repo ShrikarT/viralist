@@ -290,7 +290,9 @@ def simulate(client, media, name, n):
                   if pid in stop_at and d["scene"] > stop_at[pid]]
     assert not violations
     summary = {"requested_personas": n, "archetypes": min(n, 5), "fictional_not_calibrated": True,
-               "valid_verdicts": len(records), "stopped": len(stop_at), "completed": len(active),
+               "valid_verdicts": len(records), "stopped": len(stop_at),
+               "reached_final_segment": len({v["persona_id"] for v in records if v["scene"] == media["scenes"][-1]["index"]}),
+               "still_watching_after_final_segment": len(active),
                "failed_personas": sum(len(x["persona_ids"]) for x in failures), "failures": failures,
                "post_skip_dispatches": len(violations), "skip_check_exercised": bool(stop_at),
                "wall_sec": round(time.monotonic()-started, 3), "live_native_scene_clips": True}

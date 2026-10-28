@@ -40,15 +40,16 @@ Author “implemented” advances only to WORKER-REPORTED. Independent exact-com
 
 ## V01 — bounded integration and fidelity experiments
 
+- Current state: **WORKER-REPORTED, partial feasibility evidence** from the owner-authorized 2026-10-28 experiment; see [provider results](docs/evidence/provider-spike.md). Catalog, native videos, scene-local simulation, exact note references, four images and provider deletion exercised live. Fifty personas took 177.688s: the 90s target failed. Audio fidelity and thumbnail quality have specific failures. Matched A/B, 60s worst-case footage, independent review and production integration remain pending.
 - Behavior: establish whether the planned 50-person loop is feasible and what the actual adapter accepts.
-- Preconditions: accepted V00 SHA; owned fixture video; Standard credentials injected privately; authorized total experiment cap. Current blocker: all absent/unconfirmed.
+- Preconditions for implementation acceptance: accepted V00 SHA remains pending. The owner separately authorized this experiment with two local videos, private credentials and a $10 ceiling; those inputs and access are settled.
 - Interface: C2/C3/provider boundary in CONTRACTS; produce redacted real request/response fixtures, timestamp/cost tables and pass/fail conclusions. These are integration discoveries, not production journey proof.
 - Ownership: `experiments/`, `docs/evidence/provider-spike.md`, proposed contract amendments through the integrator. No production UI or automatic SDK upgrades.
 - Experiments (time budgets bound discovery; they do not delete product scope):
 
 | Spike | Question/test | Pass/fail and next action | Budget |
 |---|---|---|---|
-| S0 | Catalog, Standard mode, one 3s owned clip, credit balance and deletion | Authorized model accepts documented request and usage is observable; otherwise record exact sanitized status and block dependent coding | 30min; within approved $5 total |
+| S0 | Catalog, Standard mode, one 3s owned clip, credit balance and deletion | Authorized model accepts documented request and usage is observable; otherwise record exact sanitized status and block dependent coding | 30min; within owner-authorized $10 experiment total |
 | S1 | Can features preserve time and isolation? Two scene markers, known text/audio, silent control, current-only clips/frames | All required cues recovered at declared granularity; no future cue appears in early input; compare frames/native quality honestly. Resolve SDK format from docs if rejected | 45min; stop after two schema attempts |
 | S2 | Can 50 personas finish affordably? Batch ≤5 active IDs/scene; actual 60s footage; include worst-case no early skips | ≥40 valid responses with visible partial handling; full 50 for normal completion, verdict ≤90s and cost ≤proposed $0.50/run. If fails, measure bottleneck and revise contract with owner, never secretly shrink cast | 90min; ≤3 runs inside total cap |
 | S3 | Are notes useful and stable? Same owned A/B cuts, blinded labels, one deliberate change; swap A/B order | Supported changed-timestamp note survives order swap; unrelated notes not falsely resolved. No requirement that B always scores higher | 45min; ≤2 comparisons if cap permits |
