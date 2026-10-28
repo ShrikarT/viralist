@@ -49,3 +49,18 @@ Observed author verification: actual dispatch/file hashes, skip audits, unique v
 REVIEW-ACCEPTED is pending independent exact-revision review. INTEGRATED/JOURNEY-VERIFIED/RELEASED are not earned; no app exists. S1 fidelity remains partial, S2 latency fails, S3 matched comparisons untested. Next product work requires the owner's implementation instruction and a latency/audio approach informed by these observations.
 
 Sources for request formats/rates: [video and audio](https://dev.meta.ai/docs/video-understanding), [structured output](https://dev.meta.ai/docs/structured-output), [images and tool_enablement](https://dev.meta.ai/docs/image-generation), [pricing](https://dev.meta.ai/docs/pricing-rate-limits). Request dates and observed behavior above take precedence over general capability claims.
+
+## Owner correction: latest models
+
+On 2026-10-28 the owner requested the latest models. The harness default is now `muse-spark-1.3`; each new JSON model request records its requested model in the private usage ledger. The historical results above remain Spark 1.2 results. No new paid inference was performed for this configuration change, so 1.3 quality/latency is unmeasured here.
+
+The earlier 1.2 choice followed Meta's current warning that Spark 1.3 audio is not fully supported; extending that choice to all text reasoning was unnecessary. Current intended routing: Spark 1.3 for visual interpretation, persona reasoning and notes; `muse-voice-transcribe-1.0` for speech; `muse-image-1.0` for thumbnails. The latter two are the currently documented versions of those separate model families, not older Spark versions. Do not silently fall back to 1.2.
+
+Fix proposals, not completed production behavior:
+
+1. Extract audio once to mono PCM WAV; transcribe with turn timestamps and optional product-name vocabulary hints. Track `audio_track_present`, non-silence and speech detection separately. An empty transcript cannot prove absent audio. ASR does not identify music/sound effects. Give personas only text inside their current time boundary; clip or flag boundary-overlapping turns rather than leak future words. See [speech API](https://dev.meta.ai/docs/speech-to-text).
+2. Precompute/upload current-segment assets with bounded parallelism; reuse prepared evidence across persona calls. Use compact outputs and a bounded inference queue, advancing each persona only after its prior verdict. Preserve 50 cast IDs and zero post-skip dispatches; do not batch future segments into one persona request. Benchmark cached scene observations versus native clips before replacing native inputs: summaries may lose cues. Measure before promising <=90s.
+3. For thumbnails, select frames by demonstrated product/result and reject sensitive documents before generation. Preserve a layout safe area; check text and sensitive content after generation, including at mobile size. Prefer deterministic text overlays on the generated background when exact wording matters. Failed candidates stay unselected.
+4. Enforce semantic checks after JSON parsing: no product timestamp without observed product evidence; note timestamps/quotes must resolve; edits must use actual proof footage. A newer model does not replace these checks.
+
+Acceptance for a new run: freeze its source/config and private input hashes; exercise both videos, silent and non-speech audio controls, late-only cue isolation and the full 50-person path; compare latency, supported observations and cost against the historical baseline. No claim that 1.3 is automatically faster or fixes audio errors.

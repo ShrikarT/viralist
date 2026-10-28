@@ -19,7 +19,7 @@ import time
 import requests
 
 BASE = "https://api.meta.ai/v1"
-MODEL = "muse-spark-1.2"  # documented audio caveat on 1.3
+MODEL = "muse-spark-1.3"  # owner's latest-model preference; audio needs separate ASR
 SOURCES = {
     "a": Path(r"D:\UserFolders\Downloads\WhatsApp Video 2026-10-28 at 9.06.27 AM (1).mp4"),
     "b": Path(r"D:\UserFolders\Downloads\WhatsApp Video 2026-10-28 at 9.06.27 AM.mp4"),
@@ -97,6 +97,8 @@ class Client:
             number = self.counter
             entry = {"number": number, "label": label, "method": method, "endpoint": endpoint,
                      "started_unix": time.time(), "reserve_usd": reserve, "status": "dispatched"}
+            if body and "model" in body:
+                entry["requested_model"] = body["model"]
             self.ledger.append(entry)
             self.save()
         started = time.monotonic()

@@ -23,6 +23,8 @@ Full record: [provider experiment](evidence/provider-spike.md). Private artifact
 
 ## Acceptance and next action
 
+Owner subsequently requested latest models: experiment default changed to Spark 1.3; historical 1.2 results preserved. Intended separate speech path uses Muse Voice Transcribe 1.0; images remain Muse Image 1.0, the current documented family versions. No 1.3 live rerun or production audio/latency fix has been claimed. See the correction and proposed acceptance checks in the provider evidence document.
+
 | Milestone | State |
 |---|---|
 | Planning/provider author report | WORKER-REPORTED at the revisions above |
