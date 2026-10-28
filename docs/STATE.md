@@ -3,19 +3,21 @@
 ## Checkout, authority and recovery
 
 - Repository: `C:/Users/Shrikar/viralist`; branch `codex/meta-api-smoke`; owner-selected origin `https://github.com/ShrikarT/viralist.git`. No push, GitHub issue, application, deployment or release. `PLAN.md` is the canonical local task ledger.
-- Owner explicitly authorized the initial experiment and then fixing the observed issues plus staged Spark 1.3 reruns. The cumulative ceiling remains **$10**, including earlier attempts. $150 Meta credits, repository selection, supplied inputs, latest-model preference and TokenTree exclusion are settled confirmations.
+- Owner explicitly authorized the initial experiment, fixes/reruns and the fifty-policy follow-up. The latest explicit cumulative ceiling is **$15 total**, including earlier attempts and their retained unknown-charge reserve. $150 Meta credits, repository selection, supplied inputs, latest-model preference and TokenTree exclusion are settled confirmations.
 - Provider execution source: `04b852728ae22967f408f71e34f274911ab07578`. Final small and scale stages used this same committed configuration. Later handoff/dependency and legacy-CLI retirement changes do not relabel those receipts. Planning baseline `767a2f6044a04a44864a5c777b92fb085a9b7835`; owner corrections `35df6a59d6700709c078b072b1493db0fdeb53ba`; earlier Spark 1.2 run `27cff193a646646966a41f8de15d07ea97e790f4`.
 - Primary author owns this checkout and experiment/doc changes. No workers, worktrees or browser sessions were created. All provider processes are terminal; all controlled provider files are deleted/404. No active charged requests. Credential variable cleared and owned log handles closed; the original supplied key remains in the conversation and can be revoked by the owner.
 - Loaded guidance: shared/project AGENTS, goal objective attachment, supplied briefs, PLAN/PROJECT_BRIEF/ACCEPTANCE, relevant architecture/contracts/GLOSSARY and diagnosing-bugs/research/writing/domain/orchestration skills. Source provenance is in RESEARCH. Orca command was unavailable; no independent verifier ran.
 
 ## Latest evidence
 
-### Active fifty-policy follow-up
+### Completed fifty-policy follow-up
 
 - Owner requested strengthening and testing all fifty, with minimal process, and explicitly raised the cumulative API cap to **$15 total** on 2026-10-28. This supersedes the earlier $10 cap for this follow-up only; all prior $7.72663950 usage and $1.31327 unknown reserve remain in the ledger.
 - `experiments/behavior/fifty-policies.json` contains fifty task-based candidate policies with concrete requirements/tradeoffs and evidence-sensitive rating rules. `fifty-cases.json` contains 56 independent hypothetical workflow descriptions in two context/combination sets. Three repeats plus two identical-card aliases test decisions, with one separate fifty-viewer real-video run through the existing scheduler. Battery decisions are textual, not video-understanding proof.
 - No forced disagreement or tuning to observed outputs. Before inference, pairwise separation requires stable majority decisions, differences in both case sets, and at least max(2, larger alias disagreement count + 1) differing cases. A reported subset is conservative, not a maximum. Raw requests and results stay private. Independent review remains unavailable.
 - Follow-up private directory: `C:/Users/Shrikar/.codex/private-runs/viralist-fifty-20261028`. Inspect its ledger/process before restarting. No publication or product implementation authorized.
+- Result: all 50 tested; 156 canonical battery trials / 8,736 hypothetical decisions, 832/1,225 pairs noise-separated, conservative fully separated subset 14. Seven pairs had no stable observed difference; do not claim all fifty distinct. Two original ID-duplication errors were recovered only for missing/ambiguous entries. Source `8e84fcd`; recovery source `d3f97ad`. Real-video check covered only the opening: 50 valid independent viewers, 48 continue / 2 stop, zero failures. [Short result and per-policy table](evidence/fifty-persona-results.md).
+- Latest chained ledger: `viralist-fifty-20261028/recovery/ledger.json`; cumulative estimate $13.38427320 plus $1.31327 preserved reserve = $14.69754320 tracked maximum / $15. All processes terminal; active reserve zero; credential cleared and persisted scan passed. Actual cards, canonical case IDs, own-only prompts, opening frame and cost hashes reconciled in `recovery/verified.json`. 25 offline checks passed. No more paid work is active; retain WORKER-REPORTED pending independent review.
 
 ### Completed V01-DIV experiment
 

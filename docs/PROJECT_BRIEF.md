@@ -12,6 +12,8 @@ The owner subsequently authorized fixing those experimental issues and staged re
 
 The owner then authorized starting the proposed behavioral-diversity benchmark. It completed 608 synthetic viewer trials; only the privacy policy met the frozen cross-task criterion. Five candidate labels remain unproven, and the original fifty-instance baseline was not replaced. See [results and evidence matrix](evidence/persona-diversity-results.md). This local experiment does not authorize product implementation or fifty-distinct-persona claims.
 
+The owner subsequently requested strengthening and testing all fifty, explicitly raising the cumulative cap to **$15 total**. Fifty task-based policies were tested: 832/1,225 pairs separated under the fixed noise-referenced rule; a conservative mutually separated subset is fourteen. A separate supplied-video opening check returned fifty valid verdicts. [Latest result](evidence/fifty-persona-results.md). These are experimental candidate policies, not fifty proved independent human behaviors or an implemented product.
+
 ## Launch card
 
 | Field | Working answer | Evidence |
@@ -23,7 +25,7 @@ The owner then authorized starting the proposed behavioral-diversity benchmark. 
 | Demo slice | Flash, top three evidence-backed Director's Notes, paired A/B, Thumbnail Lab, visible simulation provenance, private uploads/deletion | Supplied §0.2 plus privacy invariants |
 | Event | Meta Global AI Developer Hackathon; Indie; Build for Your World | Public event verified; entrant selection only supplied |
 | Deadline | 2026-11-04 21:00 America/New_York = 2026-11-05 07:30 Asia/Kolkata | Public event date/time; timezone conversion checked locally |
-| Budget | $150 credits owner-confirmed; $10 cumulative ceiling; $7.72663950 usage-based estimate plus $1.31327 unknown-charge reserve; tracked maximum $9.03990950 | Chained ledgers through behavioral benchmark; billing balance not independently inspected |
+| Budget | $150 credits owner-confirmed; latest explicit $15 cumulative ceiling; $13.38427320 usage-based estimate plus $1.31327 unknown-charge reserve; tracked maximum $14.69754320 | Chained ledgers through fifty-policy follow-up; billing balance not independently inspected |
 | Muse Image access | Four generated images returned by API; intended generator | Live experiment 2026-10-28; quality caveats in evidence |
 | Repo/tracker | `ShrikarT/viralist`; local origin configured; PLAN.md until GitHub task migration | Owner selected; GitHub connector verified public/empty on 2026-10-28; no push |
 | Input assets | Two supplied videos tested independently; they are different products, not matched A/B cuts. TokenTree excluded. | Live inspection 2026-10-28; matched demo pair still needed |

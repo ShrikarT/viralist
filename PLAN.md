@@ -63,7 +63,7 @@ Author “implemented” advances only to WORKER-REPORTED. Independent exact-com
 
 ## V01-DIV — measure behavioral differentiation before enlarging the library
 
-- Owner follow-up: strengthen and actually test fifty candidates without expanding process. **$15 cumulative cap explicitly approved**, preserving all prior spend/reserve. Active bounded follow-up uses `build_fifty.py`, fifty fixed cards, a repeated blinded text battery with alias controls, and a separate fifty-viewer supplied-video scheduler run. Current state and private artifact root are in STATE. No fifty-distinct claim until actual decisions separate.
+- Owner follow-up **WORKER-REPORTED complete**: fifty strengthened cards tested in a repeated blinded text battery, plus fifty valid supplied-video opening verdicts. **$15 cumulative cap explicitly approved**, preserving all prior spend/reserve; tracked maximum $14.69754320. 832/1,225 pairs separated beyond alias noise; conservative mutually separated subset 14, so all-fifty-distinct is unproved. [Results](docs/evidence/fifty-persona-results.md). No full-video rerun, publication or product implementation claimed; no paid job remains active.
 
 - Owner authorized starting the proposed six-policy benchmark; the original cumulative $10 provider cap still applies. This authorizes a local experiment, not product implementation or publication.
 - Frozen experiment source: `3fa326c4a20f9dbc23c77e4152a2a012cdc852db`. Owned paths: `experiments/behavior/`, the optional custom-card scheduler seam, regression tests and evidence/context documents. No changes to the original 50-instance baseline.
