@@ -9,9 +9,10 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import patch
 
 from PIL import Image
-from meta_pipeline import (audio_state, compose_thumbnail, persona_prompt, simulate,
+from meta_pipeline import (PipelineClient, audio_state, compose_thumbnail, persona_prompt, simulate,
                            thumbnail_allowed, validate_analysis, validate_notes, validate_verdict)
 
 
@@ -50,6 +51,42 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_budget_queue_reserves_concurrent_calls_and_releases_capacity(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            prior = out/"previous.json"
+            prior.write_text(json.dumps({"active_reserve": 0, "estimated_from_reported_usage": .1, "uncertain_charge_reserve": 0}))
+            with patch("meta_smoke.sys.stdin.readline", return_value="test-only-credential\n"):
+                client = PipelineClient(out, prior)
+            client.limit = 2.11
+            active = 0
+            maximum = 0
+            lock = threading.Lock()
+
+            def request(*args, **kwargs):
+                nonlocal active, maximum
+                with lock:
+                    active += 1
+                    maximum = max(maximum, active)
+                time.sleep(.01)
+                with lock:
+                    active -= 1
+                class Response:
+                    status_code, ok, headers = 200, True, {}
+                    def json(self):
+                        return {"id": "stub-external-response"}
+                return Response()
+
+            with patch("meta_smoke.requests.request", side_effect=request):
+                with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+                    list(pool.map(lambda i: client.call(f"test-{i}", "GET", "/test", reserve=1, fixed_cost=.001), range(8)))
+            self.assertEqual(maximum, 2)
+            self.assertAlmostEqual(client.spent, .108)
+            self.assertAlmostEqual(client.reserved, 0)
+            client.uncertain = 2.1
+            with self.assertRaisesRegex(RuntimeError, "no safe capacity"):
+                client.call("must-not-dispatch", "GET", "/test", reserve=1)
+
     def test_actual_scheduler_no_future_peer_or_post_skip_input(self):
         with tempfile.TemporaryDirectory() as temp:
             client = ExternalStub(Path(temp))
