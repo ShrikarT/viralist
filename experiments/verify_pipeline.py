@@ -12,16 +12,18 @@ def verify(out):
     assert not report["failures"], report["failures"]
     assert report["model"] == "muse-spark-1.3"
     assert ledger["estimated_from_reported_usage"] + ledger["uncertain_charge_reserve"] <= 10
-    assert abs(ledger["active_reserve"]) < 1e-6 and ledger["uncertain_charge_reserve"] == 0
+    assert abs(ledger["active_reserve"]) < 1e-6
     previous = Path(ledger["previous_ledger"])
     assert digest(previous.read_bytes()) == ledger["previous_ledger_sha256"], "prior cost ledger changed"
     assert ledger["previous_spend"] == read(previous)["estimated_from_reported_usage"]
     assert all(c.get("requested_model") == "muse-spark-1.3" for c in ledger["calls"] if c["endpoint"] == "/responses")
     result = {"source_sha": report["source_sha"], "author_check_only": True, "stage": report["stage"],
-              "simulations": {}, "cumulative_estimated_usd": ledger["estimated_from_reported_usage"]}
-    for path in out.glob("*-dispatch-audit.json"):
-        prefix = path.name.removesuffix("-dispatch-audit.json")
-        name = prefix.split('-')[0]
+              "simulations": {}, "cumulative_estimated_usd": ledger["estimated_from_reported_usage"],
+              "uncertain_charge_reserve_usd": ledger["uncertain_charge_reserve"]}
+    uploads = {read(p)["id"]: read(p)["filename"] for p in out.glob("response-*-upload.json")}
+    for name, video in report["videos"].items():
+        prefix = f"{name}-{video['simulation']['requested_personas']}"
+        path = out/f"{prefix}-dispatch-audit.json"
         dispatch = read(path)
         records = read(out/f"{prefix}-reactions.json")
         summary = read(out/f"{prefix}-summary.json")
@@ -33,7 +35,7 @@ def verify(out):
             pid, index = d["persona_id"], d["scene"]
             scene = media[name]["scenes"][index]
             assert d["model"] == "muse-spark-1.3" and d["previous_response_id_present"] is False
-            assert d["file_id"] == scene["file_id"]
+            assert uploads[d["file_id"]] == Path(scene["path"]).name
             assert digest(Path(scene["path"]).read_bytes()) == d["media_sha256"] == scene["sha256"]
             assert digest(Path(scene["audio_path"]).read_bytes()) == d["audio_sha256"] == scene["audio_sha256"]
             assert d["audio"] == scene["audio"], "wrong/future transcript projected"

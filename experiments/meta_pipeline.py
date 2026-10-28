@@ -229,9 +229,10 @@ def validate_verdict(raw, pid):
     return value
 
 
-def simulate(client, item, name, n, workers=16):
+def simulate(client, item, name, n, workers=16, indices=None, prefix=None):
     started = time.monotonic()
     records, dispatches, failures = [], [], []
+    prefix = prefix or f"{name}-{n}"
     lock = threading.Lock()
 
     def one(i):
@@ -243,7 +244,7 @@ def simulate(client, item, name, n, workers=16):
                      "media_sha256": scene["sha256"], "audio_sha256": scene["audio_sha256"],
                      "audio": scene["audio"], "dispatched_unix": time.time()}
             try:
-                raw = client.text(f"{name}-{n}-s{scene['index']}-{pid}", persona_prompt(person, scene), VERDICTS,
+                raw = client.text(f"{prefix}-s{scene['index']}-{pid}", persona_prompt(person, scene), VERDICTS,
                                   file_id=scene["file_id"], max_output=600, audit=audit)
                 verdict = validate_verdict(raw, pid)
                 verdict.update(scene=scene["index"], start_sec=scene["start_sec"], end_sec=scene["end_sec"],
@@ -261,7 +262,7 @@ def simulate(client, item, name, n, workers=16):
                 break
 
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        list(pool.map(one, range(n)))
+        list(pool.map(one, range(n) if indices is None else indices))
     records.sort(key=lambda r: (r["persona_id"], r["scene"]))
     stop = {r["persona_id"]: r["scene"] for r in records if not r["still_watching"]}
     assert not any(d["scene"] > stop.get(d["persona_id"], 100000) for d in dispatches)
@@ -273,9 +274,9 @@ def simulate(client, item, name, n, workers=16):
                "still_watching_after_final_segment": sum(r["scene"] == last and r["still_watching"] for r in records),
                "wall_sec": round(time.monotonic()-started, 3), "model": MODEL, "concurrency": workers,
                "live_native_scene_clips": True, "prepared_assets_excluded_from_simulation_timer": True}
-    write_json(client.out / f"{name}-{n}-reactions.json", records)
-    write_json(client.out / f"{name}-{n}-dispatch-audit.json", dispatches)
-    write_json(client.out / f"{name}-{n}-summary.json", summary)
+    write_json(client.out / f"{prefix}-reactions.json", records)
+    write_json(client.out / f"{prefix}-dispatch-audit.json", dispatches)
+    write_json(client.out / f"{prefix}-summary.json", summary)
     print(json.dumps({"simulation": f"{name}-{n}", **summary}), flush=True)
     return summary, records
 
