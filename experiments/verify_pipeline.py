@@ -44,6 +44,10 @@ def verify(out):
                 assert features["audit"]["source_sha256"] == scene["sha256"]
                 assert features["features"] == scene["features"]
                 assert all(scene["start_sec"] <= o["at_sec"] < scene["end_sec"] for o in scene["features"]["observations"])
+                if "input_context_upper_bound_with_margin" in d:
+                    calls = [c for c in ledger["calls"] if c["label"] == f"{prefix}-s{index}-{pid}" and c["endpoint"] == "/responses"]
+                    assert len(calls) == 1 and calls[0]["status"] == "success"
+                    assert calls[0]["usage"]["input_tokens"] <= d["input_context_upper_bound_with_margin"]
             else:
                 assert uploads[d["file_id"]] == Path(scene["path"]).name
             assert digest(Path(scene["path"]).read_bytes()) == d["media_sha256"] == scene["sha256"]

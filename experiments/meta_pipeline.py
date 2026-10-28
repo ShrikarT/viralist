@@ -72,7 +72,35 @@ class PipelineClient(Client):
         self.previous_ledger = str(previous_ledger)
         self.previous_hash = digest(Path(previous_ledger).read_bytes())
         self.budget_condition = threading.Condition(self.lock)
+        self.count_condition = threading.Condition(self.lock)
+        self.media_counts = {}
+        self.pending_counts = set()
         self.save()
+
+    def image_context_bound(self, body, image_path, prompt, label):
+        key = digest(Path(image_path).read_bytes()) + digest(json.dumps(body["text"], sort_keys=True).encode()) + MODEL
+        with self.count_condition:
+            while key in self.pending_counts:
+                self.count_condition.wait(timeout=1)
+            if key in self.media_counts:
+                return self.media_counts[key] + len(prompt.encode("utf-8"))
+            self.pending_counts.add(key)
+        try:
+            template = json.loads(json.dumps(body))
+            template["input"][0]["content"][0]["text"] = ""
+            count = self.call(label + "-media-count", "POST", "/responses/input_tokens", template)["input_tokens"]
+            if not isinstance(count, int) or not 0 <= count < 1048576:
+                raise ValueError("invalid image context count")
+            with self.count_condition:
+                self.media_counts[key] = count
+            # Rendered image/schema context plus a conservative byte bound for
+            # all request text, then a separate 4096-token safety margin below.
+            # No hosted tools/history/model loops. Validate against returned usage.
+            return count + len(prompt.encode("utf-8"))
+        finally:
+            with self.count_condition:
+                self.pending_counts.remove(key)
+                self.count_condition.notify_all()
 
     def call(self, *args, **kwargs):
         # Wait for reserved capacity, not for a provider retry. Parent dispatch is
@@ -119,17 +147,22 @@ class PipelineClient(Client):
             reserve = (1048576 * 1.25 + max_output * 4.25) / 1e6
             reserve_basis = "full_context_plus_bounded_output"
         else:
-            count = self.call(label + "-count", "POST", "/responses/input_tokens", body)
-            tokens = count["input_tokens"]
+            if image_path:
+                tokens = self.image_context_bound(body, image_path, prompt, label)
+            else:
+                count = self.call(label + "-count", "POST", "/responses/input_tokens", body)
+                tokens = count["input_tokens"]
             if not isinstance(tokens, int) or not 0 <= tokens < 1048576-max_output:
                 raise ValueError("invalid text/image context count")
             reserve = (min(1048576, tokens+4096) * 1.25 + max_output * 4.25) / 1e6
-            reserve_basis = "counted_text_image_context_plus_4096_and_bounded_output_no_tools"
+            reserve_basis = "rendered_image_context_plus_text_utf8_bound_plus_4096_and_bounded_output_no_tools" if image_path else "counted_text_context_plus_4096_and_bounded_output_no_tools"
         if audit is not None:
             audit.update(model=MODEL, file_id=file_id, prompt=prompt, request_sha256=digest(json.dumps(body, sort_keys=True).encode()),
                          previous_response_id_present=False, reserve_basis=reserve_basis)
             if image_path:
                 audit.update(image_path=str(image_path), image_sha256=digest(Path(image_path).read_bytes()))
+            if not file_id:
+                audit["input_context_upper_bound_with_margin"] = tokens+4096
         raw = self.call(label, "POST", "/responses", body, reserve=reserve)
         if not file_id and raw.get("usage", {}).get("input_tokens", 0) > tokens+4096:
             raise ValueError("text/image accounting exceeded context margin; stop and reconcile")

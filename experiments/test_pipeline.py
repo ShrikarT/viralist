@@ -51,6 +51,37 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_current_image_context_is_counted_once_without_sharing_persona_text(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            prior = out/'previous.json'
+            prior.write_text(json.dumps({'active_reserve': 0, 'estimated_from_reported_usage': .1, 'uncertain_charge_reserve': 0}))
+            image = out/'frame.png'
+            Image.new('RGB', (20,20), 'gray').save(image)
+            with patch('meta_smoke.sys.stdin.readline', return_value='test-credential\n'):
+                client = PipelineClient(out, prior)
+            calls = []
+            lock = threading.Lock()
+            def call(label, method, endpoint, body=None, **kwargs):
+                with lock:
+                    calls.append((label, endpoint, body, kwargs))
+                if endpoint.endswith('input_tokens'):
+                    self.assertEqual(body['input'][0]['content'][0]['text'], '')
+                    time.sleep(.01)
+                    return {'input_tokens': 1400}
+                return {'status': 'completed', 'usage': {'input_tokens': 1500}, 'output': [
+                    {'type': 'message', 'content': [{'type':'output_text', 'text':'{"ok":true}'}]}]}
+            client.call = call
+            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+                values = list(pool.map(lambda i: client.text(f'p{i}', f'Only viewer p{i}', {'type':'object'}, image_path=image), range(3)))
+            self.assertEqual(sum(e[1].endswith('input_tokens') for e in calls), 1)
+            self.assertEqual(len(values), 3)
+            generation = [e for e in calls if e[1] == '/responses']
+            self.assertEqual(len(generation), 3)
+            for label, endpoint, body, options in generation:
+                self.assertEqual(body['input'][0]['content'][0]['text'], 'Only viewer '+label)
+                self.assertGreater(options['reserve'], .01)
+
     def test_projected_path_keeps_future_observations_and_peer_impressions_out(self):
         with tempfile.TemporaryDirectory() as temp:
             client = ExternalStub(Path(temp))
