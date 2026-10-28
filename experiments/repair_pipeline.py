@@ -50,7 +50,7 @@ def main():
             replacements, new_audits = [], []
             for failure in failed:
                 # Target only a persona whose request got a terminal server error.
-                assert 'HTTP 500' in failure['error'] and failure['scene'] == 0
+                assert ('HTTP 500' in failure['error'] and failure['scene'] == 0) or 'incomplete model response: incomplete' in failure['error']
                 pid = failure['persona_id']
                 item = copy.deepcopy(media[name])
                 for scene in item['scenes']:

@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from PIL import Image
-from meta_pipeline import (PipelineClient, audio_state, compose_thumbnail, persona_prompt, simulate,
+from meta_pipeline import (PipelineClient, audio_state, compose_thumbnail, output_json, persona_prompt, simulate,
                            thumbnail_allowed, validate_analysis, validate_notes, validate_verdict)
 
 
@@ -51,6 +51,24 @@ def scenes():
 
 
 class PipelineRegression(unittest.TestCase):
+    def test_truncated_model_output_never_accepted_as_verdict(self):
+        with self.assertRaisesRegex(ValueError, "incomplete model response"):
+            output_json({"status": "incomplete", "output": []})
+
+    def test_external_failure_keeps_partial_cast_visible_without_later_dispatch(self):
+        with tempfile.TemporaryDirectory() as temp:
+            client = ExternalStub(Path(temp))
+            original = client.text
+            def partial(label, *args, **kwargs):
+                if label.endswith('p001'):
+                    raise RuntimeError('HTTP 500 terminal test response')
+                return original(label, *args, **kwargs)
+            client.text = partial
+            summary, records = simulate(client, {'scenes': scenes()}, 'test', 2, workers=2)
+            self.assertEqual(summary['failed_personas'], 1)
+            self.assertEqual(summary['failures'][0]['persona_id'], 'p001')
+            self.assertTrue(all(r['persona_id'] == 'p002' for r in records))
+
     def test_budget_queue_reserves_concurrent_calls_and_releases_capacity(self):
         with tempfile.TemporaryDirectory() as temp:
             out = Path(temp)

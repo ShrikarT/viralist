@@ -245,7 +245,7 @@ def simulate(client, item, name, n, workers=16, indices=None, prefix=None):
                      "audio": scene["audio"], "dispatched_unix": time.time()}
             try:
                 raw = client.text(f"{prefix}-s{scene['index']}-{pid}", persona_prompt(person, scene), VERDICTS,
-                                  file_id=scene["file_id"], max_output=600, audit=audit)
+                                  file_id=scene["file_id"], max_output=1200, audit=audit)
                 verdict = validate_verdict(raw, pid)
                 verdict.update(scene=scene["index"], start_sec=scene["start_sec"], end_sec=scene["end_sec"],
                                evidence_id=f"{name}-{n}-{pid}-s{scene['index']}", accepted_unix=time.time())
@@ -267,7 +267,8 @@ def simulate(client, item, name, n, workers=16, indices=None, prefix=None):
     stop = {r["persona_id"]: r["scene"] for r in records if not r["still_watching"]}
     assert not any(d["scene"] > stop.get(d["persona_id"], 100000) for d in dispatches)
     last = item["scenes"][-1]["index"]
-    summary = {"requested_personas": n, "archetypes": min(n, len(ARCHETYPES)), "fictional_not_calibrated": True,
+    requested = n if indices is None else len(indices)
+    summary = {"requested_personas": requested, "archetypes": min(requested, len(ARCHETYPES)), "fictional_not_calibrated": True,
                "valid_verdicts": len(records), "failed_personas": len(failures), "failures": failures,
                "post_skip_dispatches": 0, "independent_persona_requests": True,
                "reached_final_segment": len({r["persona_id"] for r in records if r["scene"] == last}),
